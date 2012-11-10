@@ -1,0 +1,30 @@
+post:
+    pattern:  /
+    defaults: { _controller: "GuestBookBundle:Post:index" }
+
+post_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "GuestBookBundle:Post:show" }
+
+post_new:
+    pattern:  /new
+    defaults: { _controller: "GuestBookBundle:Post:new" }
+
+post_create:
+    pattern:  /create
+    defaults: { _controller: "GuestBookBundle:Post:create" }
+    requirements: { _method: post }
+
+post_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "GuestBookBundle:Post:edit" }
+
+post_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "GuestBookBundle:Post:update" }
+    requirements: { _method: post }
+
+post_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "GuestBookBundle:Post:delete" }
+    requirements: { _method: post }
