@@ -20,6 +20,7 @@ class LoadUserData implements FixtureInterface
         $post1 = new Post();
         $post1->setEmail('gena@rada.ck.ua');
         $post1->setBody('Україно, з Днем Рідної мови! Бережімо цей скарб! Шануймося!');
+        $post1->setName('Gena');
         $manager->persist($post1);
         }
 

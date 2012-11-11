@@ -5,7 +5,7 @@ namespace My\GuestBookBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * My\GuestBookBundle\Entity\Post
+ * Post
  *
  * @ORM\Table(name="guestbook")
  * @ORM\Entity(repositoryClass="My\GuestBookBundle\Entity\PostRepository")
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Post
 {
     /**
-     * @var integer $id
+     * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,14 +22,21 @@ class Post
     private $id;
 
     /**
-     * @var string $email
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=50)
+     */
+    private $name;
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="email", type="string", length=50)
      */
     private $email;
 
     /**
-     * @var string $body
+     * @var string
      *
      * @ORM\Column(name="body", type="text")
      */
@@ -44,6 +51,29 @@ class Post
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Post
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**

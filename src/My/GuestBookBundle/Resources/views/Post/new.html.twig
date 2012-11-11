@@ -1,3 +1,8 @@
+{% extends 'GuestBookBundle::layout.html.twig' %}
+
+{% block content %}
+
+
 <h1>Post creation</h1>
 
 <form action="{{ path('post_create') }}" method="post" {{ form_enctype(form) }}>
@@ -14,3 +19,6 @@
         </a>
     </li>
 </ul>
+
+
+{% endblock %}

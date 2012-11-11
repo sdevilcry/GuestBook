@@ -1,0 +1,32 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Guest Book ===={% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/guestbook/css/bootstrap.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/guestbook/css/main.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <header>
+        <div class="row">
+            <div class="span3"><H1>GuestsBook</H1></div>
+        </div>
+    </header>
+    <HR>
+    {% block content %}
+    {% endblock %}
+    <HR>
+    <footer>
+        <div class="row">
+            <div class="span9"><strong>GeekHub</strong></div>
+            <div class="span3">
+                <address>
+                    <strong>Зеленський Г.М.</strong><br>
+                    <a href="mailto:#">gena.admin@gmail.com</a>
+                </address>
+            </div>
+        </div>
+    </footer>
+    </div>
+{% endblock %}

@@ -27,4 +27,4 @@ post_update:
 post_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "GuestBookBundle:Post:delete" }
-    requirements: { _method: post }
+#    requirements: { _method: post }

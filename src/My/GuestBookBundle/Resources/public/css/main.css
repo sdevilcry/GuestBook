@@ -10,11 +10,12 @@ body {
     margin: 10px auto;
     position: relative;
     width: 940px;
-	height:450px;	
+	height:250px;
 	overflow: scroll; 
 }
 hr {
 border-color: #000000;
+margin: 3px 0;
 }
 .text-area-text {
 width: 542px;
@@ -48,3 +49,10 @@ word-wrap: break-word
 margin: 0 0 5px;
 }
 
+.pagination {
+    margin: 5px 0;
+}
+
+address {
+    margin-bottom: 5px;
+}

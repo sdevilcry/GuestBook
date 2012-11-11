@@ -151,20 +151,20 @@ class PostController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->bind($request);
+//        $form = $this->createDeleteForm($id);
+//        $form->bind($request);
 
-        if ($form->isValid()) {
+//        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('GuestBookBundle:Post')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Post entity.');
-            }
+//            if (!$entity) {
+//                throw $this->createNotFoundException('Unable to find Post entity.');
+//            }
 
             $em->remove($entity);
             $em->flush();
-        }
+//        }
 
         return $this->redirect($this->generateUrl('post'));
     }
