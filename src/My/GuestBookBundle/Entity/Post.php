@@ -3,6 +3,7 @@
 namespace My\GuestBookBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Post
@@ -23,21 +24,28 @@ class Post
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="Your name cannot contain a number"
+     * )
      * @ORM\Column(name="name", type="string", length=50)
      */
     private $name;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Email
      * @ORM\Column(name="email", type="string", length=50)
      */
     private $email;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\MinLength(100)
      * @ORM\Column(name="body", type="text")
      */
     private $body;
