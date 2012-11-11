@@ -23,9 +23,6 @@ class LoadUserData implements FixtureInterface
         $manager->persist($post1);
         }
 
-
-
-
         $manager->flush();
     }
 }
