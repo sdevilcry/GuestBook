@@ -21,11 +21,12 @@ class PostController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('GuestBookBundle:Post')->findAll();
-
+        $entity = new Post();
+        $form   = $this->createForm(new PostType(), $entity);
         return $this->render('GuestBookBundle:Post:index.html.twig', array(
             'entities' => $entities,
+            'form'     => $form->createView(),
         ));
     }
 

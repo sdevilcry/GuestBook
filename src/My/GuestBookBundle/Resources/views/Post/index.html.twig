@@ -1,7 +1,9 @@
 {% extends 'GuestBookBundle::layout.html.twig' %}
 
-{% block content %}
+{% block title "GuestBook | index" %}
 
+
+{% block content %}
     {% block paginator  %}
         <div class="pagination pagination-centered">
             <ul>
@@ -18,26 +20,23 @@
 
 
 
+    <form action="{{ path('post_create') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_row(form.name) }}
+        {{ form_row(form.email) }}
+        {{ form_rest(form) }}
+        <p>
+            <button type="submit">Create</button>
+        </p>
+    </form>
 
-    <div class="row ">
-        <div class="span16">
-            <form class="form-inline">
-                <div class="control-group">
-                    <label for="inputName">Name</label>
-                    <input type="text" id="inputName" placeholder="Name">
+    {#<ul>#}
+        {#<li>#}
+            {#<a href="{{ path('post_new') }}">#}
+                {#Create a new entry#}
+            {#</a>#}
+        {#</li>#}
+    {#</ul>#}
 
-                    <label class="control-label" for="inputEmail">Email</label>
-                    <input type="text" id="inputEmail" placeholder="Email">
-
-                    <button type="submit" class="btn btn-primary">Sign in</button>
-                </div>
-                <div class="control-group">
-                    <label  for="inputPassword">Текст</label>
-                    <textarea rows="5" placeholder="Текст" class="text-area-text" ></textarea>
-                </div>
-            </form>
-        </div>
-    </div>
 
 
 
@@ -68,13 +67,7 @@
                     </ul>
                 </div>
             {% endfor %}
-            <ul>
-                <li>
-                    <a href="{{ path('post_new') }}">
-                        Create a new entry
-                    </a>
-                </li>
-            </ul>
+
         </div>
     </div>
 
