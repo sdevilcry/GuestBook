@@ -2,13 +2,7 @@
 
 {% block title "GuestBook | index" %}
 
-
 {% block content %}
-    {% block paginator  %}
-                {{ pagerfanta(my_pager,'twitter_bootstrap') }}
-    {% endblock %}
-
-
 
     <form action="{{ path('post_create') }}" method="post" {{ form_enctype(form) }}>
         {{ form_row(form.name) }}
@@ -19,10 +13,9 @@
         </p>
     </form>
     <hr>
+    {{ pagerfanta(my_pager,'twitter_bootstrap') }}
     <div class="row">
         <div class="span16 posts">
-
-
             {% for entity in entities %}
                 <div class="post_content">
                     <span class="label label-info">{{ entity.id }}</span>
@@ -34,10 +27,12 @@
                     </div>
                     <ul class="breadcrumb br-margin">
                         <li>
-                            <a href="{{ path('post_show', { 'id': entity.id }) }}">Show</a> <span class="divider">/</span>
+                            <a href="{{ path('post_show', { 'id': entity.id }) }}">Show</a> <span
+                                class="divider">/</span>
                         </li>
                         <li>
-                            <a href="{{ path('post_edit', { 'id': entity.id }) }}">edit</a> <span class="divider">/</span>
+                            <a href="{{ path('post_edit', { 'id': entity.id }) }}">edit</a> <span
+                                class="divider">/</span>
                         </li>
                         <li>
                             <a href="{{ path('post_delete', {'id': entity.id}) }}">Delete</a>
@@ -45,10 +40,7 @@
                     </ul>
                 </div>
             {% endfor %}
-
         </div>
     </div>
-
-
 {% endblock %}
 
