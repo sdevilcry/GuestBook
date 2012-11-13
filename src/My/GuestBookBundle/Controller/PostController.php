@@ -5,6 +5,7 @@ namespace My\GuestBookBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use My\GuestBookBundle\Entity\Post;
 use My\GuestBookBundle\Form\PostType;
@@ -26,11 +27,13 @@ class PostController extends Controller
     public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
-        // $entities = $em->getRepository('GuestBookBundle:Post')->findAll();
+        $entities = $em->getRepository('GuestBookBundle:Post')->findAll();
+        $adapter = new ArrayAdapter($entities);
 
-        $entities = $em->getRepository('GuestBookBundle:Post')->createQueryBuilder('t');
+       // $entities = $em->getRepository('GuestBookBundle:Post')->createQueryBuilder();
+       // $adapter = new DoctrineORMAdapter($entities);
 
-        $adapter = new DoctrineORMAdapter($entities);
+
         $pagerfanta = new Pagerfanta($adapter);
         $maxPerPage = $this->container->getParameter('maxPerPage');
         $pagerfanta->setMaxPerPage($maxPerPage); // 10 by default

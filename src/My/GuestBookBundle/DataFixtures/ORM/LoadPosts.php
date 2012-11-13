@@ -13,8 +13,6 @@ class LoadUserData implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-
-
         $post = new Post();
         $post->setEmail('gena@rada.ck.ua');
         $post->setBody(
