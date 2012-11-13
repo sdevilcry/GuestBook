@@ -28,3 +28,7 @@ post_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "GuestBookBundle:Post:delete" }
 #    requirements: { _method: post }
+
+#post_page:
+#    pattern:  /page/{page}
+#    defaults: { _controller: "GuestBookBundle:Post:index", page:1 }

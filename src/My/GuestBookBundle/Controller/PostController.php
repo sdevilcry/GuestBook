@@ -4,9 +4,11 @@ namespace My\GuestBookBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 use My\GuestBookBundle\Entity\Post;
 use My\GuestBookBundle\Form\PostType;
+
 
 /**
  * Post controller.
@@ -14,21 +16,37 @@ use My\GuestBookBundle\Form\PostType;
  */
 class PostController extends Controller
 {
+
+
     /**
      * Lists all Post entities.
      *
      */
-    public function indexAction()
+
+    public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('GuestBookBundle:Post')->findAll();
+        // $entities = $em->getRepository('GuestBookBundle:Post')->findAll();
+
+        $entities = $em->getRepository('GuestBookBundle:Post')->createQueryBuilder('t');
+
+        $adapter = new DoctrineORMAdapter($entities);
+        $pagerfanta = new Pagerfanta($adapter);
+        $maxPerPage = $this->container->getParameter('maxPerPage');
+        $pagerfanta->setMaxPerPage($maxPerPage); // 10 by default
+        $pagerfanta->setCurrentPage($page); // 1 by default
         $entity = new Post();
-        $form   = $this->createForm(new PostType(), $entity);
-        return $this->render('GuestBookBundle:Post:index.html.twig', array(
-            'entities' => $entities,
-            'form'     => $form->createView(),
-        ));
+        $form = $this->createForm(new PostType(), $entity);
+        return $this->render(
+            'GuestBookBundle:Post:index.html.twig',
+            array(
+                'entities' => $pagerfanta->getCurrentPageResults(),
+                'form' => $form->createView(),
+                'my_pager' => $pagerfanta,
+            )
+        );
     }
+
 
     /**
      * Finds and displays a Post entity.
@@ -46,9 +64,13 @@ class PostController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('GuestBookBundle:Post:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+        return $this->render(
+            'GuestBookBundle:Post:show.html.twig',
+            array(
+                'entity' => $entity,
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
     }
 
     /**
@@ -58,12 +80,15 @@ class PostController extends Controller
     public function newAction()
     {
         $entity = new Post();
-        $form   = $this->createForm(new PostType(), $entity);
+        $form = $this->createForm(new PostType(), $entity);
 
-        return $this->render('GuestBookBundle:Post:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'GuestBookBundle:Post:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -72,7 +97,7 @@ class PostController extends Controller
      */
     public function createAction(Request $request)
     {
-        $entity  = new Post();
+        $entity = new Post();
         $form = $this->createForm(new PostType(), $entity);
         $form->bind($request);
 
@@ -84,10 +109,13 @@ class PostController extends Controller
             return $this->redirect($this->generateUrl('post_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('GuestBookBundle:Post:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'GuestBookBundle:Post:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -107,11 +135,14 @@ class PostController extends Controller
         $editForm = $this->createForm(new PostType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('GuestBookBundle:Post:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->render(
+            'GuestBookBundle:Post:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
     }
 
     /**
@@ -139,11 +170,14 @@ class PostController extends Controller
             return $this->redirect($this->generateUrl('post_edit', array('id' => $id)));
         }
 
-        return $this->render('GuestBookBundle:Post:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->render(
+            'GuestBookBundle:Post:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
     }
 
     /**
@@ -152,29 +186,17 @@ class PostController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-//        $form = $this->createDeleteForm($id);
-//        $form->bind($request);
-
-//        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('GuestBookBundle:Post')->find($id);
-
-//            if (!$entity) {
-//                throw $this->createNotFoundException('Unable to find Post entity.');
-//            }
-
-            $em->remove($entity);
-            $em->flush();
-//        }
-
-        return $this->redirect($this->generateUrl('post'));
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('GuestBookBundle:Post')->find($id);
+        $em->remove($entity);
+        $em->flush();
+        return $this->redirect($this->generateUrl('guest_book_homepage'));
     }
 
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

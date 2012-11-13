@@ -57,3 +57,10 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+#services:
+#    pagerfanta.view.default:
+#        class: Pagerfanta\View\DefaultView
+#        public: false
+#        tags: [{ name: pagerfanta.view, alias: default }]
+guest_book:
+    maxPerPage: 10

@@ -14,7 +14,7 @@ class LoadUserData implements FixtureInterface
     public function load(ObjectManager $manager)
     {
 
-        for ($i=0; $i<10; $i++)
+        for ($i=0; $i<3; $i++)
         {
 
         $post1 = new Post();

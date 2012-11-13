@@ -24,6 +24,11 @@ class Configuration implements ConfigurationInterface
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
 
+        $rootNode
+            ->children()
+            ->scalarNode('maxPerPage')->defaultValue('10')->end()
+            ->end();
+
         return $treeBuilder;
     }
 }

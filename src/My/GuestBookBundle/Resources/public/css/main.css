@@ -11,7 +11,8 @@ body {
     position: relative;
     width: 940px;
 	height:250px;
-	overflow: scroll; 
+	overflow: scroll;
+    margin-left: 20px;
 }
 hr {
 border-color: #000000;
@@ -42,7 +43,8 @@ word-wrap: break-word
 	width: 865px;
     padding: 10px;
     text-align: left;
-	word-wrap: break-word;	    
+	word-wrap: break-word;
+
 }
 
 .br-margin {
